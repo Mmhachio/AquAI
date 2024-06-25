@@ -4,7 +4,7 @@ import joblib
 app = Flask(__name__)
 
 # Load your model
-model = joblib.load('path/to/your/model.pkl')
+model = joblib.load("model.pkl")
 
 @app.route('/')
 def home():
