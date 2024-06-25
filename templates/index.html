@@ -3,115 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Quality Prediction</title>
+    <title>Water Safety Prediction</title>
 </head>
 <body>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url("{{ url_for('static', filename='water.jpg') }}");
-            background-size: cover;
-            background-position: center;
-        }
-        header {
-            background-color: #035096;
-            color: #fff;
-            text-align: center;
-            padding: 15px 0;
-            height: 60px;
-        }
-        h1 {
-            text-align: center;
-        }
-        form {
-            width: 500px;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        input {
-            width: 90%;
-            padding: 2px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        .button {
-            background-color: #035096;
-            width: 30%;
-            color: white;
-            height: 50px;
-        }
-        .button:hover {
-            background-color: #007d7d;
-        }
-        main {
-            display: flex;
-            max-height: 100vh;
-            padding: 20px;
-            justify-content: center;
-        }
-        footer {
-            background-color: #035096;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: relative;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
-    <h1>Water Quality Prediction</h1>
-    <form id="predict-form" method="post">
+    <h2>Water Safety Prediction</h2>
+    <form action="/predict" method="post">
         <label for="ph">pH:</label><br>
         <input type="text" id="ph" name="ph"><br>
+        
         <label for="hardness">Hardness:</label><br>
         <input type="text" id="hardness" name="hardness"><br>
+        
         <label for="solids">Solids:</label><br>
         <input type="text" id="solids" name="solids"><br>
+        
         <label for="chloramines">Chloramines:</label><br>
         <input type="text" id="chloramines" name="chloramines"><br>
+        
         <label for="sulfate">Sulfate:</label><br>
         <input type="text" id="sulfate" name="sulfate"><br>
+        
         <label for="conductivity">Conductivity:</label><br>
         <input type="text" id="conductivity" name="conductivity"><br>
+        
         <label for="organic_carbon">Organic Carbon:</label><br>
         <input type="text" id="organic_carbon" name="organic_carbon"><br>
+        
         <label for="trihalomethanes">Trihalomethanes:</label><br>
         <input type="text" id="trihalomethanes" name="trihalomethanes"><br>
+        
         <label for="turbidity">Turbidity:</label><br>
         <input type="text" id="turbidity" name="turbidity"><br><br>
+        
         <input type="submit" value="Predict">
     </form>
-    <div id="prediction-result"></div>
-
-    <script>
-        // JavaScript code for handling form submission and displaying prediction result
-        document.getElementById('predict-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-
-            // Collect form data
-            const formData = new FormData(this);
-
-            // Send a POST request to the server with form data
-            fetch('predict', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json()) // Parse response as JSON
-            .then(data => {
-                // Display prediction result
-                document.getElementById('prediction-result').innerText = data.prediction;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
 </body>
 </html>
