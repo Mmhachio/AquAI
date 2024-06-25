@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, jsonify
-import joblib
+from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+import joblib
 
-app = Flask(__name__, template_folder="C:/minor project/templates")
+app = Flask(__name__)
 
 # Load the trained model
 model = joblib.load("model.pkl")
@@ -30,7 +31,7 @@ def predict():
     # Map prediction to human-readable output
     prediction_text = "Water is Safe" if prediction == 1 else "Water is Unsafe"
 
-    # Render the result template with the prediction
+    # Render the prediction result template
     return render_template("result.html", prediction=prediction_text)
 
 if __name__ == "__main__":
