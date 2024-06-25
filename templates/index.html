@@ -3,39 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Safety Prediction</title>
+    <title>Water Safety Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h2>Water Safety Prediction</h2>
-    <form action="/predict" method="post">
-        <label for="ph">pH:</label><br>
-        <input type="text" id="ph" name="ph"><br>
-        
-        <label for="hardness">Hardness:</label><br>
-        <input type="text" id="hardness" name="hardness"><br>
-        
-        <label for="solids">Solids:</label><br>
-        <input type="text" id="solids" name="solids"><br>
-        
-        <label for="chloramines">Chloramines:</label><br>
-        <input type="text" id="chloramines" name="chloramines"><br>
-        
-        <label for="sulfate">Sulfate:</label><br>
-        <input type="text" id="sulfate" name="sulfate"><br>
-        
-        <label for="conductivity">Conductivity:</label><br>
-        <input type="text" id="conductivity" name="conductivity"><br>
-        
-        <label for="organic_carbon">Organic Carbon:</label><br>
-        <input type="text" id="organic_carbon" name="organic_carbon"><br>
-        
-        <label for="trihalomethanes">Trihalomethanes:</label><br>
-        <input type="text" id="trihalomethanes" name="trihalomethanes"><br>
-        
-        <label for="turbidity">Turbidity:</label><br>
-        <input type="text" id="turbidity" name="turbidity"><br><br>
-        
-        <input type="submit" value="Predict">
-    </form>
+    <h2>Water Safety Prediction Result</h2>
+    <p>{{ prediction }}</p>
+    <a href="/">Back to Home</a>
 </body>
 </html>
