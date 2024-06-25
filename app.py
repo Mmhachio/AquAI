@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import joblib
 
 app = Flask(__name__, template_folder="C:/minor project/templates")
