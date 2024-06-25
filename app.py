@@ -1,37 +1,34 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, jsonify
 import joblib
 
-app = Flask(__name__, template_folder="C:/minor project/templates")
+app = Flask(__name__)
 
-# Load the trained model
-model = joblib.load("model.pkl")
+# Load your model
+model = joblib.load('path/to/your/model.pkl')
 
-@app.route("/")
+@app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template('index.html')
 
-@app.route("/predict", methods=["POST"])
+@app.route('/predict', methods=['POST'])
 def predict():
-    # Get the input values from the form
-    ph = float(request.form["ph"])
-    hardness = float(request.form["hardness"])
-    solids = float(request.form["solids"])
-    chloramines = float(request.form["chloramines"])
-    sulfate = float(request.form["sulfate"])
-    conductivity = float(request.form["conductivity"])
-    organic_carbon = float(request.form["organic_carbon"])
-    trihalomethanes = float(request.form["trihalomethanes"])
-    turbidity = float(request.form["turbidity"])
+    data = request.form.to_dict()
+    features = [float(data['ph']), float(data['hardness']), float(data['solids']), 
+                float(data['chloramines']), float(data['sulfate']), float(data['conductivity']),
+                float(data['organic_carbon']), float(data['trihalomethanes']), float(data['turbidity'])]
+    
+    prediction = model.predict([features])[0]
+    return jsonify(prediction=prediction)
 
-    # Make a prediction using the model
-    prediction = model.predict([[ph, hardness, solids, chloramines, sulfate, conductivity, organic_carbon, trihalomethanes, turbidity]])[0]
+@app.route('/result', methods=['POST'])
+def result():
+    data = request.form.to_dict()
+    features = [float(data['ph']), float(data['hardness']), float(data['solids']), 
+                float(data['chloramines']), float(data['sulfate']), float(data['conductivity']),
+                float(data['organic_carbon']), float(data['trihalomethanes']), float(data['turbidity'])]
+    
+    prediction = model.predict([features])[0]
+    return render_template('result.html', prediction=prediction)
 
-    # Map prediction to human-readable output
-    prediction_text = "Water is Safe" if prediction == 1 else "Water is Unsafe"
-
-    # Render the result template with the prediction
-    return render_template("result.html", prediction=prediction_text)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
